@@ -1,9 +1,9 @@
 #pragma once
 #include <Arduino.h>
 #include "flprogUtilites.h"
-#include "flprogEventLogAbstractField.h"
+#include "flprogEepromEventLogAbstractField.h"
 
-class flprogEventLogLongValueField : public FlprogEventLogAbstractField
+class FlprogEepromEventLogLongValueField : public FlprogEepromEventLogAbstractField
 {
 
 public:

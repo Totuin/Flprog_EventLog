@@ -21,6 +21,5 @@ public:
     virtual void setTimeValue(uint32_t value) { setUnLongValue(value); };
 
 protected:
-    virtual void
-    privateCopyFrom(FlprogEventLogAbstractField *field) { (void)field; };
+    virtual void privateCopyFrom(FlprogEventLogAbstractField *field) { (void)field; };
 };

@@ -1,0 +1,66 @@
+#######################################
+# Syntax Coloring Map
+#######################################
+#######################################
+# # Datatypes (KEYWORD1)
+#######################################
+FlprogEventLog	KEYWORD1
+FlprogEventLogAbstractField	KEYWORD1
+FlprogEventLogBooleanValueField	KEYWORD1
+FlprogEventLogByteValueField	KEYWORD1
+FlprogEventLogEvent	KEYWORD1
+FlprogEventLogIntValueField	KEYWORD1
+FlprogEventLogRecord	KEYWORD1
+FlprogEventLogTimeField	KEYWORD1
+FlprogEventLogUnLongteValueField	KEYWORD1
+flprogEventLogLongValueField	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+addNewEvent	KEYWORD2
+booleanValue	KEYWORD2
+byteValue	KEYWORD2
+copyFrom	KEYWORD2
+event	KEYWORD2
+getBooleanValue	KEYWORD2
+getByteValue	KEYWORD2
+getDescription	KEYWORD2
+getEvent	KEYWORD2
+getField	KEYWORD2
+getIntValue	KEYWORD2
+getLongValue	KEYWORD2
+getRecord	KEYWORD2
+getTimeValue	KEYWORD2
+getUnLongValue	KEYWORD2
+hasEvent	KEYWORD2
+intValue	KEYWORD2
+longValue	KEYWORD2
+setBooleanField	KEYWORD2
+setBooleanValue	KEYWORD2
+setByteField	KEYWORD2
+setByteValue	KEYWORD2
+setDescription	KEYWORD2
+setEvent	KEYWORD2
+setEventDescription	KEYWORD2
+setFielSize	KEYWORD2
+setIntValue	KEYWORD2
+setIntegerField	KEYWORD2
+setLastBooleanValue	KEYWORD2
+setLastByteValue	KEYWORD2
+setLastIntValue	KEYWORD2
+setLastLongValue	KEYWORD2
+setLastTimeValue	KEYWORD2
+setLastUnLongValue	KEYWORD2
+setLongField	KEYWORD2
+setLongValue	KEYWORD2
+setTimeField	KEYWORD2
+setTimeValue	KEYWORD2
+setUnLongField	KEYWORD2
+setUnLongValue	KEYWORD2
+timeValue	KEYWORD2
+unLongValue	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
