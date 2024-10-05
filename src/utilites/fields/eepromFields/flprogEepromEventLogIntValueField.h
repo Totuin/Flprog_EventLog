@@ -6,10 +6,10 @@
 class FlprogEepromEventLogIntValueField : public FlprogEepromEventLogAbstractField
 {
 public:
-    virtual int16_t intValue() { return _value; };
-    virtual void setIntValue(int16_t value) { _value = value; };
+    virtual int16_t intValue();
+    virtual uint8_t eepromSize() { return 2; };
+    virtual void setIntValue(int16_t value);
 
 protected:
-    virtual void privateCopyFrom(FlprogEventLogAbstractField *field) { _value = field->intValue(); };
-    int16_t _value;
+    virtual void privateCopyFrom(FlprogEventLogAbstractField *field) { setIntValue(field->intValue()); };
 };

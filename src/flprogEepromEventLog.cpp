@@ -21,3 +21,41 @@ FlprogEventLogAbstractRecord *FlprogEepromEventLog::getRecord(uint16_t index)
     }
     return &_records[index];
 }
+
+uint16_t FlprogEepromEventLog::setEEprom(FLProgAbstractEEPROM *chip, uint16_t addres)
+{
+    uint16_t startAddres = addres;
+    uint8_t startBit = 0;
+    for (uint16_t i = 0; i < _recordsSize; i++)
+    {
+        for (uint8_t f = 0; f < _fieldsSize; f++)
+        {
+            if (_records[i].isBoolField(f))
+            {
+                _records[i].setEeprom(f, chip, startAddres, startBit);
+                startBit++;
+                if (startBit > 7)
+                {
+                    startBit = 0;
+                    startAddres++;
+                }
+            }
+        }
+    }
+    if (startBit > 0)
+    {
+        startAddres++;
+    }
+    for (uint16_t i = 0; i < _recordsSize; i++)
+    {
+        for (uint8_t f = 0; f < _fieldsSize; f++)
+        {
+            if (!_records[i].isBoolField(f))
+            {
+                _records[i].setEeprom(f, chip, startAddres);
+                startAddres = startAddres + (_records[i].eepromSize(f));
+            }
+        }
+    }
+    return startAddres;
+}

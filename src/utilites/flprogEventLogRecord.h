@@ -6,7 +6,7 @@
 #include "fields\basicFields\flprogEventLogIntValueField.h"
 #include "fields\basicFields\flprogEventLogBooleanValueField.h"
 #include "fields\basicFields\flprogEventLogLongValueField.h"
-#include "fields\basicFields\flprogEventLogUnLongteValueField.h"
+#include "fields\basicFields\flprogEventLogUnLongValueField.h"
 #include "flprogEventLogEvent.h"
 #include "flprogEventLogAbstractRecord.h"
 

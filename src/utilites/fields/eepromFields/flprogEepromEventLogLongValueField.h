@@ -7,10 +7,10 @@ class FlprogEepromEventLogLongValueField : public FlprogEepromEventLogAbstractFi
 {
 
 public:
-    virtual int32_t longValue() { return _value; };
-    virtual void setLongValue(int32_t value) { _value = value; };
+    virtual int32_t longValue();
+    virtual uint8_t eepromSize() { return 4; };
+    virtual void setLongValue(int32_t value);
 
 protected:
-    virtual void privateCopyFrom(FlprogEventLogAbstractField *field) { _value = field->longValue(); };
-    int32_t _value;
+    virtual void privateCopyFrom(FlprogEventLogAbstractField *field) { setLongValue(field->longValue()); };
 };

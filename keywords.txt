@@ -4,16 +4,27 @@
 #######################################
 # # Datatypes (KEYWORD1)
 #######################################
+FlprogAbstractEventLog	KEYWORD1
+FlprogEepromEventLog	KEYWORD1
+FlprogEepromEventLogAbstractField	KEYWORD1
+FlprogEepromEventLogBooleanValueField	KEYWORD1
+FlprogEepromEventLogByteValueField	KEYWORD1
+FlprogEepromEventLogIntValueField	KEYWORD1
+FlprogEepromEventLogLongValueField	KEYWORD1
+FlprogEepromEventLogRecord	KEYWORD1
+FlprogEepromEventLogTimeField	KEYWORD1
+FlprogEepromEventLogUnLongValueField	KEYWORD1
 FlprogEventLog	KEYWORD1
 FlprogEventLogAbstractField	KEYWORD1
+FlprogEventLogAbstractRecord	KEYWORD1
 FlprogEventLogBooleanValueField	KEYWORD1
 FlprogEventLogByteValueField	KEYWORD1
 FlprogEventLogEvent	KEYWORD1
 FlprogEventLogIntValueField	KEYWORD1
+FlprogEventLogLongValueField	KEYWORD1
 FlprogEventLogRecord	KEYWORD1
 FlprogEventLogTimeField	KEYWORD1
 FlprogEventLogUnLongteValueField	KEYWORD1
-flprogEventLogLongValueField	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
@@ -22,6 +33,7 @@ addNewEvent	KEYWORD2
 booleanValue	KEYWORD2
 byteValue	KEYWORD2
 copyFrom	KEYWORD2
+eepromSize	KEYWORD2
 event	KEYWORD2
 getBooleanValue	KEYWORD2
 getByteValue	KEYWORD2
@@ -35,15 +47,18 @@ getTimeValue	KEYWORD2
 getUnLongValue	KEYWORD2
 hasEvent	KEYWORD2
 intValue	KEYWORD2
+isBoolField	KEYWORD2
 longValue	KEYWORD2
 setBooleanField	KEYWORD2
 setBooleanValue	KEYWORD2
 setByteField	KEYWORD2
 setByteValue	KEYWORD2
 setDescription	KEYWORD2
+setEEprom	KEYWORD2
+setEeprom	KEYWORD2
 setEvent	KEYWORD2
 setEventDescription	KEYWORD2
-setFielSize	KEYWORD2
+setFieldSize	KEYWORD2
 setIntValue	KEYWORD2
 setIntegerField	KEYWORD2
 setLastBooleanValue	KEYWORD2

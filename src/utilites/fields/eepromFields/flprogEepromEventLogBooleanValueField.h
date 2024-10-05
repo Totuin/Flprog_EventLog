@@ -7,10 +7,12 @@ class FlprogEepromEventLogBooleanValueField : public FlprogEepromEventLogAbstrac
 {
 
 public:
-    virtual bool booleanValue() { return _value; };
-    virtual void setBooleanValue(bool value) { _value = value; };
+    virtual bool booleanValue();
+    virtual void setBooleanValue(bool value);
+    virtual bool isBoolField() { return true; };
+    virtual void setEeprom(FLProgAbstractEEPROM *chip, uint16_t address, uint8_t bit = 0);
 
 protected:
-    virtual void privateCopyFrom(FlprogEventLogAbstractField *field) { _value = field->booleanValue(); };
-    bool _value;
+    virtual void privateCopyFrom(FlprogEventLogAbstractField *field) { setBooleanValue(field->booleanValue()); };
+    uint8_t _bit;
 };

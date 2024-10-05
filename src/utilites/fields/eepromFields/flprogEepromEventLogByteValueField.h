@@ -6,10 +6,10 @@
 class FlprogEepromEventLogByteValueField : public FlprogEepromEventLogAbstractField
 {
 public:
-    virtual uint8_t byteValue() { return _value; };
-    virtual void setByteValue(uint8_t value) { _value = value; };
+    virtual uint8_t byteValue();
+    virtual uint8_t eepromSize() { return 1; };
+    virtual void setByteValue(uint8_t value);
 
 protected:
-    virtual void privateCopyFrom(FlprogEventLogAbstractField *field) { _value = field->byteValue(); };
-    uint8_t _value;
+    virtual void privateCopyFrom(FlprogEventLogAbstractField *field) { setByteValue(field->byteValue()); };
 };
