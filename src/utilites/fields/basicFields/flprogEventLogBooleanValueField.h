@@ -11,6 +11,5 @@ public:
     virtual void setBooleanValue(bool value) { _value = value; };
 
 protected:
-    virtual void privateCopyFrom(FlprogEventLogAbstractField *field) { _value = field->booleanValue(); };
-    bool _value;
+     bool _value;
 };

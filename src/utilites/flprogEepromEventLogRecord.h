@@ -25,7 +25,19 @@ public:
     bool isBoolField(uint8_t index);
     uint8_t eepromSize(uint8_t index);
     void setEeprom(uint8_t index, FLProgAbstractEEPROM *chip, uint16_t address, uint8_t bit = 0);
+    void setEventIndexAddress(FLProgAbstractEEPROM *chip, uint16_t address);
+    void setWeightAddress(FLProgAbstractEEPROM *chip, uint16_t address);
+
+    virtual void setEvent(uint8_t index);
+    virtual void setWeight(uint16_t value);
+
+    virtual bool hasEvent() { return getWeight() > 0; };
+    virtual uint8_t event();
+    virtual uint16_t getWeight();
 
 protected:
-    FlprogEepromEventLogAbstractField *_fields;
+    FlprogEepromEventLogAbstractField **_fields;
+    FLProgAbstractEEPROM *_chip = 0;
+    uint16_t _eventIndexAddress;
+    uint16_t _weightAddress;
 };

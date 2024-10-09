@@ -10,6 +10,5 @@ public:
     virtual void setIntValue(int16_t value) { _value = value; };
 
 protected:
-    virtual void privateCopyFrom(FlprogEventLogAbstractField *field) { _value = field->intValue(); };
-    int16_t _value;
+      int16_t _value;
 };

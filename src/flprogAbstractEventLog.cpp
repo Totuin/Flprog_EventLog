@@ -106,34 +106,155 @@ void FlprogAbstractEventLog::setEventDescription(uint16_t index, String descript
     _events[index].setDescription(description);
 }
 
+String FlprogAbstractEventLog::getEventDescription(uint16_t index)
+{
+    if (index >= _eventsSize)
+    {
+        return "";
+    }
+    return _events[index].getDescription();
+}
+
 FlprogEventLogAbstractRecord *FlprogAbstractEventLog::addNewEvent(uint16_t index)
 {
     if (index >= _eventsSize)
     {
         return 0;
     }
-    FlprogEventLogAbstractRecord *target;
-    for (int32_t i = (_recordsSize - 2); i >= 0; i--)
+    FlprogEventLogAbstractRecord *record = getRecordWithVirtualIndex(_recordsSize - 1);
+    if (record == 0)
     {
-        FlprogEventLogAbstractRecord *sourse = getRecord(i);
-        target = getRecord(i + 1);
-        if (sourse != 0)
-        {
-            if (target != 0)
-            {
+        return 0;
+    }
+    uint16_t maxWeight = getMaxWeight();
+    record->setEvent(index);
+    record->setWeight(maxWeight + 1);
+    _isSorted = false;
+    return record;
+}
 
-                target->copyFrom(sourse);
+FlprogEventLogAbstractRecord *FlprogAbstractEventLog::getRecordWithVirtualIndex(uint16_t index)
+{
+    if (!_isSorted)
+    {
+        sortVirtualIndexes();
+    }
+    if (index >= _recordsSize)
+    {
+        return 0;
+    }
+    return getRecord(_virtualIndexes[index]);
+}
+
+uint16_t FlprogAbstractEventLog::getMaxWeight()
+{
+    if (!_isSorted)
+    {
+        sortVirtualIndexes();
+    }
+    FlprogEventLogAbstractRecord *record = getRecordWithVirtualIndex(0);
+    if (record == 0)
+    {
+        return 0;
+    }
+    return record->getWeight();
+}
+
+void FlprogAbstractEventLog::sortVirtualIndexes()
+{
+    uint16_t temp = _recordsSize;
+    uint16_t temp1;
+    FlprogEventLogAbstractRecord *firstRecord;
+    FlprogEventLogAbstractRecord *secondRecord;
+    while (temp--)
+    {
+        bool swapped = false;
+        for (int i = 0; i < temp; i++)
+        {
+            firstRecord = getRecord(_virtualIndexes[i]);
+            secondRecord = getRecord(_virtualIndexes[i + 1]);
+            if (firstRecord != 0)
+            {
+                if (secondRecord != 0)
+                {
+                    if ((firstRecord->getWeight()) < (secondRecord->getWeight()))
+                    {
+                        temp1 = _virtualIndexes[i];
+                        _virtualIndexes[i] = _virtualIndexes[i + 1];
+                        _virtualIndexes[i + 1] = temp1;
+                        swapped = true;
+                    }
+                }
+            }
+        }
+        if (swapped == false)
+        {
+            _isSorted = true;
+            checkWeight();
+            return;
+        }
+    }
+    checkWeight();
+    _isSorted = true;
+}
+
+void FlprogAbstractEventLog::checkWeight()
+{
+    FlprogEventLogAbstractRecord *record = getRecord(_virtualIndexes[0]);
+    if (record != 0)
+    {
+        if ((record->getWeight()) >= 65000)
+        {
+            resetWeight();
+        }
+    }
+    _isSorted = false;
+}
+
+void FlprogAbstractEventLog::resetRecord(uint16_t index)
+{
+    FlprogEventLogAbstractRecord *record = getRecordWithVirtualIndex(index);
+    if (record != 0)
+    {
+        record->setWeight(0);
+    }
+}
+
+void FlprogAbstractEventLog::clearEventLog()
+{
+    FlprogEventLogAbstractRecord *record;
+    for (uint16_t i = 0; i < _recordsSize; i++)
+    {
+        record = getRecord(i);
+        if (record != 0)
+        {
+            record->setWeight(0);
+        }
+    }
+}
+
+void FlprogAbstractEventLog::resetWeight()
+{
+    uint16_t temp = _recordsSize + 1;
+    uint16_t index = 1;
+    FlprogEventLogAbstractRecord *record;
+    while (temp--)
+    {
+        record = getRecord(_virtualIndexes[temp - 1]);
+        if (record != 0)
+        {
+            if (record->getWeight() > 0)
+            {
+                record->setWeight(index);
+                index++;
             }
         }
     }
-    target = getRecord(0);
-    target->setEvent(index);
-    return target;
 }
 
 void FlprogAbstractEventLog::setBooleanValue(uint16_t index, uint8_t fieldIndex, bool value)
 {
-    FlprogEventLogAbstractRecord *record = getRecord(index);
+    FlprogEventLogAbstractRecord *record = getRecordWithVirtualIndex(index);
     if (record == 0)
     {
         return;
@@ -143,7 +264,7 @@ void FlprogAbstractEventLog::setBooleanValue(uint16_t index, uint8_t fieldIndex,
 
 void FlprogAbstractEventLog::setByteValue(uint16_t index, uint8_t fieldIndex, uint8_t value)
 {
-    FlprogEventLogAbstractRecord *record = getRecord(index);
+    FlprogEventLogAbstractRecord *record = getRecordWithVirtualIndex(index);
     if (record == 0)
     {
         return;
@@ -153,7 +274,7 @@ void FlprogAbstractEventLog::setByteValue(uint16_t index, uint8_t fieldIndex, ui
 
 void FlprogAbstractEventLog::setIntValue(uint16_t index, uint8_t fieldIndex, int16_t value)
 {
-    FlprogEventLogAbstractRecord *record = getRecord(index);
+    FlprogEventLogAbstractRecord *record = getRecordWithVirtualIndex(index);
     if (record == 0)
     {
         return;
@@ -163,7 +284,7 @@ void FlprogAbstractEventLog::setIntValue(uint16_t index, uint8_t fieldIndex, int
 
 void FlprogAbstractEventLog::setLongValue(uint16_t index, uint8_t fieldIndex, int32_t value)
 {
-    FlprogEventLogAbstractRecord *record = getRecord(index);
+    FlprogEventLogAbstractRecord *record = getRecordWithVirtualIndex(index);
     if (record == 0)
     {
         return;
@@ -173,7 +294,7 @@ void FlprogAbstractEventLog::setLongValue(uint16_t index, uint8_t fieldIndex, in
 
 void FlprogAbstractEventLog::setUnLongValue(uint16_t index, uint8_t fieldIndex, uint32_t value)
 {
-    FlprogEventLogAbstractRecord *record = getRecord(index);
+    FlprogEventLogAbstractRecord *record = getRecordWithVirtualIndex(index);
     if (record == 0)
     {
         return;
@@ -183,7 +304,7 @@ void FlprogAbstractEventLog::setUnLongValue(uint16_t index, uint8_t fieldIndex, 
 
 FlprogEventLogAbstractField *FlprogAbstractEventLog::getField(uint16_t index, uint8_t fieldIndex)
 {
-    FlprogEventLogAbstractRecord *record = getRecord(index);
+    FlprogEventLogAbstractRecord *record = getRecordWithVirtualIndex(index);
     if (record == 0)
     {
         return 0;
@@ -202,8 +323,12 @@ FlprogEventLogEvent *FlprogAbstractEventLog::getEvent(uint16_t index)
 
 bool FlprogAbstractEventLog::getBooleanValue(uint16_t index, uint8_t fieldIndex)
 {
-    FlprogEventLogAbstractRecord *record = getRecord(index);
+    FlprogEventLogAbstractRecord *record = getRecordWithVirtualIndex(index);
     if (record == 0)
+    {
+        return false;
+    }
+    if (!(record->hasEvent()))
     {
         return false;
     }
@@ -212,8 +337,12 @@ bool FlprogAbstractEventLog::getBooleanValue(uint16_t index, uint8_t fieldIndex)
 
 uint8_t FlprogAbstractEventLog::getByteValue(uint16_t index, uint8_t fieldIndex)
 {
-    FlprogEventLogAbstractRecord *record = getRecord(index);
+    FlprogEventLogAbstractRecord *record = getRecordWithVirtualIndex(index);
     if (record == 0)
+    {
+        return 0;
+    }
+    if (!(record->hasEvent()))
     {
         return 0;
     }
@@ -222,8 +351,12 @@ uint8_t FlprogAbstractEventLog::getByteValue(uint16_t index, uint8_t fieldIndex)
 
 int16_t FlprogAbstractEventLog::getIntValue(uint16_t index, uint8_t fieldIndex)
 {
-    FlprogEventLogAbstractRecord *record = getRecord(index);
+    FlprogEventLogAbstractRecord *record = getRecordWithVirtualIndex(index);
     if (record == 0)
+    {
+        return 0;
+    }
+    if (!(record->hasEvent()))
     {
         return 0;
     }
@@ -232,8 +365,12 @@ int16_t FlprogAbstractEventLog::getIntValue(uint16_t index, uint8_t fieldIndex)
 
 int32_t FlprogAbstractEventLog::getLongValue(uint16_t index, uint8_t fieldIndex)
 {
-    FlprogEventLogAbstractRecord *record = getRecord(index);
+    FlprogEventLogAbstractRecord *record = getRecordWithVirtualIndex(index);
     if (record == 0)
+    {
+        return 0;
+    }
+    if (!(record->hasEvent()))
     {
         return 0;
     }
@@ -242,10 +379,55 @@ int32_t FlprogAbstractEventLog::getLongValue(uint16_t index, uint8_t fieldIndex)
 
 uint32_t FlprogAbstractEventLog::getUnLongValue(uint16_t index, uint8_t fieldIndex)
 {
-    FlprogEventLogAbstractRecord *record = getRecord(index);
+    FlprogEventLogAbstractRecord *record = getRecordWithVirtualIndex(index);
     if (record == 0)
     {
         return 0;
     }
+    if (!(record->hasEvent()))
+    {
+        return 0;
+    }
     return record->getUnLongValue(fieldIndex);
+}
+
+bool FlprogAbstractEventLog::hasEvent(uint16_t index)
+{
+    FlprogEventLogAbstractRecord *record = getRecordWithVirtualIndex(index);
+    if (record == 0)
+    {
+        return false;
+    }
+    return record->hasEvent();
+}
+
+uint16_t FlprogAbstractEventLog::event(uint16_t index)
+{
+    FlprogEventLogAbstractRecord *record = getRecordWithVirtualIndex(index);
+    if (record == 0)
+    {
+        return 0;
+    }
+    if (!(record->hasEvent()))
+    {
+        return _eventsSize + 1;
+    }
+    return record->event();
+}
+
+uint16_t FlprogAbstractEventLog::getUsedRecordsSize()
+{
+    uint16_t result = 0;
+    for (uint16_t i = 0; i < _recordsSize; i++)
+    {
+        if (getRecordWithVirtualIndex(i)->hasEvent())
+        {
+            result++;
+        }
+        else
+        {
+            return result;
+        }
+    }
+    return result;
 }

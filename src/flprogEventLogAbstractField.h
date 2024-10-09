@@ -5,7 +5,6 @@
 class FlprogEventLogAbstractField
 {
 public:
-    void copyFrom(FlprogEventLogAbstractField *field);
     virtual bool booleanValue() { return false; };
     virtual uint8_t byteValue() { return 0; };
     virtual int16_t intValue() { return 0; };
@@ -21,5 +20,4 @@ public:
     virtual void setTimeValue(uint32_t value) { setUnLongValue(value); };
 
 protected:
-    virtual void privateCopyFrom(FlprogEventLogAbstractField *field) { (void)field; };
 };

@@ -10,6 +10,5 @@ public:
     virtual void setUnLongValue(uint32_t value) { _value = value; };
 
 protected:
-    virtual void privateCopyFrom(FlprogEventLogAbstractField *field) { _value = field->unLongValue(); };
     uint32_t _value;
 };

@@ -1,11 +1,5 @@
 #include "flprogEventLogAbstractRecord.h"
 
-void FlprogEventLogAbstractRecord::setEvent(uint16_t index)
-{
-    _hasEvent = true;
-    _eventIndex = index;
-}
-
 void FlprogEventLogAbstractRecord::setBooleanValue(uint8_t index, bool value)
 {
     FlprogEventLogAbstractField *field = getField(index);
@@ -69,7 +63,7 @@ bool FlprogEventLogAbstractRecord::getBooleanValue(uint8_t index)
 uint8_t FlprogEventLogAbstractRecord::getByteValue(uint8_t index)
 {
     FlprogEventLogAbstractField *field = getField(index);
-     if (field == 0)
+    if (field == 0)
     {
         return 0;
     }
@@ -104,23 +98,4 @@ uint32_t FlprogEventLogAbstractRecord::getUnLongValue(uint8_t index)
         return 0;
     }
     return field->unLongValue();
-}
-
-void FlprogEventLogAbstractRecord::copyFrom(FlprogEventLogAbstractRecord *record)
-{
-    _hasEvent = record->hasEvent();
-    _eventIndex = record->event();
-    for (uint8_t i = 0; i < _fieldsSize; i++)
-    {
-        FlprogEventLogAbstractField *field = record->getField(i);
-        FlprogEventLogAbstractField *target = getField(i);
-        if (field != 0)
-        {
-            if (target != 0)
-            {
-
-                target->copyFrom(field);
-            }
-        }
-    }
 }

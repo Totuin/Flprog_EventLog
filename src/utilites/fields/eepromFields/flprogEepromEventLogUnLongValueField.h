@@ -11,5 +11,4 @@ public:
     virtual uint8_t eepromSize() { return 4; };
 
 protected:
-    virtual void privateCopyFrom(FlprogEventLogAbstractField *field) { setUnLongValue(field->unLongValue()); };
 };

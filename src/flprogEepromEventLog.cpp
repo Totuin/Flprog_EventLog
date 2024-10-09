@@ -6,10 +6,12 @@ FlprogEepromEventLog::FlprogEepromEventLog(uint16_t eventsSize, uint16_t records
     _recordsSize = recordsSize;
     _events = new FlprogEventLogEvent[_eventsSize];
     _records = new FlprogEepromEventLogRecord[_recordsSize];
+    _virtualIndexes = new uint16_t[_recordsSize];
     _fieldsSize = fieldsSize;
     for (uint16_t i = 0; i < _recordsSize; i++)
     {
         _records[i].setFieldSize(_fieldsSize);
+        _virtualIndexes[i] = i;
     }
 }
 
@@ -48,6 +50,10 @@ uint16_t FlprogEepromEventLog::setEEprom(FLProgAbstractEEPROM *chip, uint16_t ad
     }
     for (uint16_t i = 0; i < _recordsSize; i++)
     {
+        _records[i].setEventIndexAddress(chip, startAddres);
+        startAddres++;
+        _records[i].setWeightAddress(chip, startAddres);
+        startAddres = startAddres + 2;
         for (uint8_t f = 0; f < _fieldsSize; f++)
         {
             if (!_records[i].isBoolField(f))

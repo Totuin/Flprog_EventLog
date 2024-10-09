@@ -11,5 +11,5 @@ public:
     virtual void setByteValue(uint8_t value);
 
 protected:
-    virtual void privateCopyFrom(FlprogEventLogAbstractField *field) { setByteValue(field->byteValue()); };
+
 };

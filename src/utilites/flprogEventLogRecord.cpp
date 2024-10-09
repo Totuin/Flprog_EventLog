@@ -1,9 +1,13 @@
 #include "flprogEventLogRecord.h"
 
+
 void FlprogEventLogRecord::setFieldSize(uint8_t fieldsSize)
 {
     _fieldsSize = fieldsSize;
-    _fields = new FlprogEventLogAbstractField[_fieldsSize];
+    if (fieldsSize != 0)
+    {
+        _fields = new FlprogEventLogAbstractField *[_fieldsSize];
+    }
 }
 
 void FlprogEventLogRecord::setTimeField(uint8_t index)
@@ -12,7 +16,7 @@ void FlprogEventLogRecord::setTimeField(uint8_t index)
     {
         return;
     }
-    _fields[index] = FlprogEventLogTimeField();
+    _fields[index] = new FlprogEventLogTimeField();
 }
 
 void FlprogEventLogRecord::setByteField(uint8_t index)
@@ -21,7 +25,7 @@ void FlprogEventLogRecord::setByteField(uint8_t index)
     {
         return;
     }
-    _fields[index] = FlprogEventLogByteValueField();
+    _fields[index] = new FlprogEventLogByteValueField();
 }
 
 void FlprogEventLogRecord::setIntegerField(uint8_t index)
@@ -30,7 +34,7 @@ void FlprogEventLogRecord::setIntegerField(uint8_t index)
     {
         return;
     }
-    _fields[index] = FlprogEventLogIntValueField();
+    _fields[index] = new FlprogEventLogIntValueField();
 }
 
 void FlprogEventLogRecord::setBooleanField(uint8_t index)
@@ -39,7 +43,7 @@ void FlprogEventLogRecord::setBooleanField(uint8_t index)
     {
         return;
     }
-    _fields[index] = FlprogEventLogBooleanValueField();
+    _fields[index] = new FlprogEventLogBooleanValueField();
 }
 
 void FlprogEventLogRecord::setLongField(uint8_t index)
@@ -48,7 +52,7 @@ void FlprogEventLogRecord::setLongField(uint8_t index)
     {
         return;
     }
-    _fields[index] = FlprogEventLogIntValueField();
+    _fields[index] = new FlprogEventLogIntValueField();
 }
 
 void FlprogEventLogRecord::setUnLongField(uint8_t index)
@@ -57,7 +61,7 @@ void FlprogEventLogRecord::setUnLongField(uint8_t index)
     {
         return;
     }
-    _fields[index] = FlprogEventLogUnLongteValueField();
+    _fields[index] = new FlprogEventLogUnLongteValueField();
 }
 
 FlprogEventLogAbstractField *FlprogEventLogRecord::getField(uint8_t index)
@@ -66,6 +70,5 @@ FlprogEventLogAbstractField *FlprogEventLogRecord::getField(uint8_t index)
     {
         return 0;
     }
-    return &_fields[index];
+    return _fields[index];
 }
-

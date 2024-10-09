@@ -7,7 +7,6 @@
 class FlprogAbstractEventLog
 {
 public:
- 
     void setTimeField(uint8_t index);
     void setByteField(uint8_t index);
     void setIntegerField(uint8_t index);
@@ -36,7 +35,6 @@ public:
     void setTimeValue(uint16_t index, uint8_t fieldIndex, uint32_t value) { setUnLongValue(index, fieldIndex, value); };
     void setLastTimeValue(uint8_t fieldIndex, uint32_t value) { setTimeValue(0, fieldIndex, value); };
 
-    
     FlprogEventLogAbstractField *getField(uint16_t index, uint8_t fieldIndex);
     FlprogEventLogEvent *getEvent(uint16_t index);
 
@@ -47,11 +45,25 @@ public:
     uint32_t getUnLongValue(uint16_t index, uint8_t fieldIndex);
     uint32_t getTimeValue(uint16_t index, uint8_t fieldIndex) { return getUnLongValue(index, fieldIndex); };
 
-    virtual FlprogEventLogAbstractRecord *getRecord(uint16_t index) =0;
+    bool hasEvent(uint16_t index);
+    uint16_t event(uint16_t index);
+    uint16_t getUsedRecordsSize();
+    String getEventDescription(uint16_t index);
+
+    void resetRecord(uint16_t index);
+    void clearEventLog();
 
 protected:
+    virtual FlprogEventLogAbstractRecord *getRecord(uint16_t index) = 0;
+    FlprogEventLogAbstractRecord *getRecordWithVirtualIndex(uint16_t index);
+    uint16_t getMaxWeight();
+    void sortVirtualIndexes();
+    void checkWeight();
+    void resetWeight();
     FlprogEventLogEvent *_events;
     uint16_t _eventsSize;
     uint16_t _recordsSize;
     uint8_t _fieldsSize;
+    uint16_t *_virtualIndexes;
+    bool _isSorted = false;
 };

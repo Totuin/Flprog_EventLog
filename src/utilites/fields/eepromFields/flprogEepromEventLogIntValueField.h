@@ -11,5 +11,5 @@ public:
     virtual void setIntValue(int16_t value);
 
 protected:
-    virtual void privateCopyFrom(FlprogEventLogAbstractField *field) { setIntValue(field->intValue()); };
+ 
 };

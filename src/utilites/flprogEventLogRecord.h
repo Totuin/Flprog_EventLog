@@ -21,10 +21,18 @@ public:
     virtual void setBooleanField(uint8_t index);
     virtual void setLongField(uint8_t index);
     virtual void setUnLongField(uint8_t index);
-    
-      virtual FlprogEventLogAbstractField *getField(uint8_t index);
+
+    virtual FlprogEventLogAbstractField *getField(uint8_t index);
+
+    virtual void setEvent(uint8_t index) { _eventIndex = index; };
+    virtual void setWeight(uint16_t value) { _weight = value; };
+
+    virtual bool hasEvent() { return _weight > 0; };
+    virtual uint8_t event() { return _eventIndex; };
+    virtual uint16_t getWeight() { return _weight; };
 
 protected:
-  
-    FlprogEventLogAbstractField *_fields;
+    FlprogEventLogAbstractField **_fields;
+    uint16_t _weight = 0;
+    uint8_t _eventIndex;
 };

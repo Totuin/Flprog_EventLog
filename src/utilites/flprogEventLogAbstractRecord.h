@@ -28,17 +28,15 @@ public:
     uint32_t getUnLongValue(uint8_t index);
     uint32_t getTimeValue(uint8_t index) { return getUnLongValue(index); };
 
-    void setEvent(uint16_t index);
+    virtual void setEvent(uint8_t index) = 0;
+    virtual void setWeight(uint16_t value) = 0;
 
-    bool hasEvent() { return _hasEvent; };
-    uint16_t event() { return _eventIndex; };
-
-    void copyFrom(FlprogEventLogAbstractRecord *record);
+    virtual bool hasEvent() = 0;
+    virtual uint8_t event() = 0;
+    virtual uint16_t getWeight() = 0;
 
     virtual FlprogEventLogAbstractField *getField(uint8_t index) = 0;
 
 protected:
     uint8_t _fieldsSize = 0;
-    bool _hasEvent = false;
-    uint16_t _eventIndex;
 };

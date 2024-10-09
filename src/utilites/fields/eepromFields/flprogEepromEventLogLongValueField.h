@@ -12,5 +12,4 @@ public:
     virtual void setLongValue(int32_t value);
 
 protected:
-    virtual void privateCopyFrom(FlprogEventLogAbstractField *field) { setLongValue(field->longValue()); };
 };
