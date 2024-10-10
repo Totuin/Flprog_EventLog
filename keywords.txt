@@ -32,23 +32,27 @@ FlprogEventLogUnLongteValueField	KEYWORD1
 addNewEvent	KEYWORD2
 booleanValue	KEYWORD2
 byteValue	KEYWORD2
-copyFrom	KEYWORD2
+clearEventLog	KEYWORD2
 eepromSize	KEYWORD2
 event	KEYWORD2
 getBooleanValue	KEYWORD2
 getByteValue	KEYWORD2
 getDescription	KEYWORD2
 getEvent	KEYWORD2
+getEventDescription	KEYWORD2
 getField	KEYWORD2
 getIntValue	KEYWORD2
 getLongValue	KEYWORD2
 getRecord	KEYWORD2
 getTimeValue	KEYWORD2
 getUnLongValue	KEYWORD2
+getUsedRecordsSize	KEYWORD2
+getWeight	KEYWORD2
 hasEvent	KEYWORD2
 intValue	KEYWORD2
 isBoolField	KEYWORD2
 longValue	KEYWORD2
+resetRecord	KEYWORD2
 setBooleanField	KEYWORD2
 setBooleanValue	KEYWORD2
 setByteField	KEYWORD2
@@ -58,6 +62,7 @@ setEEprom	KEYWORD2
 setEeprom	KEYWORD2
 setEvent	KEYWORD2
 setEventDescription	KEYWORD2
+setEventIndexAddress	KEYWORD2
 setFieldSize	KEYWORD2
 setIntValue	KEYWORD2
 setIntegerField	KEYWORD2
@@ -73,6 +78,8 @@ setTimeField	KEYWORD2
 setTimeValue	KEYWORD2
 setUnLongField	KEYWORD2
 setUnLongValue	KEYWORD2
+setWeight	KEYWORD2
+setWeightAddress	KEYWORD2
 timeValue	KEYWORD2
 unLongValue	KEYWORD2
 
